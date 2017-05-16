@@ -33,7 +33,6 @@ class Logentries {
       this.loggers = {
         [this.token]: this.winston.add(winston.transports.Logentries, { token: this.token })
       };
-      this.winston.log('error', 'Hello world');
     } else {
       console.warn('Logentries logging was not initialized due to a missing token');
     }
