@@ -2,10 +2,8 @@ require('le_node');
 const winston = require('winston');
 
 /**
-  @class ConsoleLink
+  @class Logentries
   A Logentries logger chain link
-  @implements ChainLink @class - a basic interface for each link based on the Chain of Resp Pattern
-  This chain link is responsible for logging a message to the Logentries endpoint
 
   Has the following configurations (either env var or settings param):
   - LOGENTRIES_LOGGING {'true'|'false'} - switches on / off the use of this chain link
@@ -19,7 +17,7 @@ const winston = require('winston');
 class Logentries {
   /**
     @constructor
-    Construct an instance of a ConsoleLink @class
+    Construct an instance of a Logentries @class
     @param configs {Object} - LoggerChain configuration object
     @param utility {Object} - Logtify common rules object
   **/
@@ -105,6 +103,10 @@ class Logentries {
   }
 }
 
+/**
+  @param config {Object} - chain link configuration
+  @return { object } - chain link object with a class
+**/
 module.exports = (config) => {
   const configs = Object.assign({
     LOGS_TOKEN: process.env.LOGS_TOKEN || process.env.LOGENTRIES_TOKEN

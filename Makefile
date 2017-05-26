@@ -10,13 +10,8 @@ test:
 	make lint
 	make cover
 
-init:
-	sed -i 's/{service-name}/node-logtify-logentries/g' package.json
-	sed -i 's/{service-name}/node-logtify-logentries/g' README.md
-	sed -i 's/{service-name}/node-logtify-logentries/g' sonar-project.properties
-
 cover:
-	node_modules/.bin/istanbul cover  node_modules/.bin/_mocha -- test --recursive --timeout=3000
+	node_modules/.bin/istanbul cover  node_modules/.bin/_mocha -- test --recursive --timeout=10000
 
 sonar:
 	sed '/sonar.projectVersion/d' ./sonar-project.properties > tmp && mv tmp sonar-project.properties

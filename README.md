@@ -1,9 +1,11 @@
-# node-logtify-logentries
+# logtify-logentries
+[![CircleCI](https://circleci.com/gh/dial-once/node-logtify-logentries.svg?style=svg)](https://circleci.com/gh/dial-once/node-logtify-logentries)
+
 Logentries chain link for [logtify](https://github.com/dial-once/node-logtify) logger
 
 ## Installation
 ```
-npm i -S logtify-logentries
+npm i -S @dialonce/logtify-logentries
 ```
 
 ## Usage
@@ -11,8 +13,8 @@ When requiring a [logtify](https://github.com/dial-once/node-logtify) module, in
 
 **Variant 1** (Settings passed as global logger settings:): 
 ```js
-const { LogentriesChainLink } = require('logtify-logentries');
-const { chain, logger } = require('logtify')({
+const { LogentriesChainLink } = require('@dialonce/logtify-logentries');
+const { chain, logger } = require('@dialonce/logtify')({
   LOGS_TOKEN: 'YOUR_LOGENTRIES_TOKEN',
   chainLinks: [ LogentriesChainLink ]
 });
@@ -20,8 +22,8 @@ const { chain, logger } = require('logtify')({
 
 **Variant 2** (Settings passed into a chain link wrapper):
 ```js
-const Logentries = require('logtify-logentries');
-const { chain, logger } = require('logtify')({
+const Logentries = require('@dialonce/logtify-logentries');
+const { chain, logger } = require('@dialonce/logtify')({
   chainLinks: [ Logentries({ LOGS_TOKEN: 'YOUR_LOGENTRIES_TOKEN' })]
 });
 
@@ -42,7 +44,7 @@ The chainLink will make sure that a message will be sent to Logentries if:
 ```js
 {
   LOGENTRIES_LOGGING: true|false,
-  LOGS_TOKEN: 'YOUR_TOKEN',
+  LOGS_TOKEN: 'YOUR_LOGENTRIES_TOKEN',
   MIN_LOG_LEVEL_LOGENTRIES: 'silly|verbose|info|warn|error'
 }
 ```
