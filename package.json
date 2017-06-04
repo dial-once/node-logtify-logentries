@@ -1,5 +1,5 @@
 {
-  "name": "@dialonce/logtify-logentries",
+  "name": "logtify-logentries",
   "version": "0.0.0",
   "description": "Logentries chain link for logtify logger",
   "main": "src/index.js",
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/dial-once/node-logtify-logentries#readme",
   "dependencies": {
     "le_node": "^1.7.0",
+    "logtify": "file:../node-logtify",
     "winston": "^2.3.1"
   },
   "devDependencies": {

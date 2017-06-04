@@ -1,5 +1,9 @@
 require('le_node');
 const winston = require('winston');
+const logtify = require('logtify');
+
+const chainBuffer = logtify.chainBuffer;
+const { chain } = logtify();
 
 /**
   @class Logentries
@@ -14,46 +18,26 @@ const winston = require('winston');
 
   Environment variables have a higher priority over a settings object parameters
 **/
-class Logentries {
+class Logentries extends chain.ChainLink {
   /**
     @constructor
     Construct an instance of a Logentries @class
     @param configs {Object} - LoggerChain configuration object
     @param utility {Object} - Logtify common rules object
   **/
-  constructor(configs, utility) {
+  constructor(configs) {
+    super();
     this.settings = configs || {};
-    this.utility = utility;
+    this.name = 'LOGENTRIES';
     if (this.settings.LOGS_TOKEN) {
       this.token = this.settings.LOGS_TOKEN;
       this.winston = new winston.Logger();
-      this.name = 'LOGENTRIES';
       this.loggers = {
         [this.token]: this.winston.add(winston.transports.Logentries, { token: this.token })
       };
     } else {
       console.warn('Logentries logging was not initialized due to a missing token');
     }
-  }
-
-  /**
-    @function next
-    @param message {Object} - a message package object
-    Envoke the handle @function of the next chain link if provided
-  **/
-  next(message) {
-    if (this.nextLink) {
-      this.nextLink.handle(message);
-    }
-  }
-
-  /**
-    @function link
-    Links current chain link to a next chain link
-    @param nextLink {Object} - an optional next link for current chain link
-  **/
-  link(nextLink) {
-    this.nextLink = nextLink;
   }
 
   /**
@@ -73,8 +57,9 @@ class Logentries {
     @return {boolean} - if this chain link is switched on / off
   **/
   isEnabled() {
-    return ['true', 'false'].includes(process.env.LOGENTRIES_LOGGING) ?
-      process.env.LOGENTRIES_LOGGING === 'true' : !!this.settings.LOGENTRIES_LOGGING;
+    const result = ['true', 'false'].includes(process.env.LOGENTRIES_LOGGING) ?
+      process.env.LOGENTRIES_LOGGING === 'true' : this.settings.LOGENTRIES_LOGGING;
+    return [null, undefined].includes(result) ? true : result;
   }
 
   /**
@@ -91,10 +76,9 @@ class Logentries {
   handle(message) {
     if (this.isReady() && this.isEnabled() && message) {
       const content = message.payload;
-      const logLevels = this.utility.logLevels;
-      const messageLevel = logLevels.has(content.level) ? content.level : logLevels.get('default');
-      const minLogLevel = this.utility.getMinLogLevel(this.settings, this.name);
-      if (logLevels.get(messageLevel) >= logLevels.get(minLogLevel)) {
+      const messageLevel = this.logLevels.has(content.level) ? content.level : this.logLevels.get('default');
+      const minLogLevel = this.getMinLogLevel(this.settings, this.name);
+      if (this.logLevels.get(messageLevel) >= this.logLevels.get(minLogLevel)) {
         const prefix = message.getPrefix(this.settings);
         this.winston.log(messageLevel, `${prefix}${content.text}`, content.meta);
       }
@@ -111,10 +95,16 @@ module.exports = (config) => {
   const configs = Object.assign({
     LOGS_TOKEN: process.env.LOGS_TOKEN || process.env.LOGENTRIES_TOKEN
   }, config);
-  return {
+  const chainLinkData = {
     class: Logentries,
     config: configs
   };
+
+  chainBuffer.addChainLink(chainLinkData);
+  const mergedConfigs = Object.assign({}, configs, chain.settings);
+  chain.push(new Logentries(mergedConfigs));
+
+  return chainLinkData;
 };
 
 module.exports.LogentriesChainLink = Logentries;
