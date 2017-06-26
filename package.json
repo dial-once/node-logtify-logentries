@@ -21,7 +21,7 @@
   "homepage": "https://github.com/dial-once/node-logtify-logentries#readme",
   "dependencies": {
     "le_node": "^1.7.0",
-    "logtify": "file:../node-logtify",
+    "logtify": "^1.0.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
