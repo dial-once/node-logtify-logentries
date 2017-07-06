@@ -1,6 +1,6 @@
 {
   "name": "logtify-logentries",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Logentries chain link for logtify logger",
   "main": "src/index.js",
   "directories": {
