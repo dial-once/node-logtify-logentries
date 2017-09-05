@@ -13,9 +13,6 @@ describe('Logentries subscriber ', () => {
     delete process.env.LOG_ENVIRONMENT;
     delete process.env.LOG_LEVEL;
     delete process.env.LOG_REQID;
-  });
-
-  beforeEach(() => {
     const logentriesPackage = Logentries();
     this.LogentriesSubscriber = logentriesPackage.class;
   });
@@ -110,8 +107,7 @@ describe('Logentries subscriber ', () => {
       LOGS_TOKEN: '00000000-0000-0000-0000-000000000000',
       LOGENTRIES_LOGGING: true
     });
-    const spy = sinon.spy(logentries.winston.log);
-    logentries.winston.log = spy;
+    const spy = sinon.spy(logentries.winston, 'log');
     const message = new Message();
     logentries.handle(message);
     assert(spy.called);
@@ -122,8 +118,7 @@ describe('Logentries subscriber ', () => {
       LOGS_TOKEN: '00000000-0000-0000-0000-000000000000',
       LOGENTRIES_LOGGING: false
     });
-    const spy = sinon.spy(logentries.winston.log);
-    logentries.winston.log = spy;
+    const spy = sinon.spy(logentries.winston, 'log');
     const message = new Message();
     logentries.handle(message);
     assert(!spy.called);
@@ -135,8 +130,7 @@ describe('Logentries subscriber ', () => {
       LOGENTRIES_LOGGING: true,
       MIN_LOG_LEVEL: 'error'
     });
-    const spy = sinon.spy(logentries.winston.log);
-    logentries.winston.log = spy;
+    const spy = sinon.spy(logentries.winston, 'log');
     const message = new Message();
     logentries.handle(message);
     assert(!spy.called);
@@ -147,8 +141,7 @@ describe('Logentries subscriber ', () => {
       LOGS_TOKEN: '00000000-0000-0000-0000-000000000000',
       LOGENTRIES_LOGGING: true
     });
-    const spy = sinon.spy(logentries.winston.log);
-    logentries.winston.log = spy;
+    const spy = sinon.spy(logentries.winston, 'log');
     const message = new Message();
     process.env.MIN_LOG_LEVEL = 'error';
     logentries.handle(message);
@@ -160,8 +153,7 @@ describe('Logentries subscriber ', () => {
       LOGS_TOKEN: '00000000-0000-0000-0000-000000000000',
       LOGENTRIES_LOGGING: true
     });
-    const spy = sinon.spy(logentries.winston.log);
-    logentries.winston.log = spy;
+    const spy = sinon.spy(logentries.winston, 'log');
     const message = new Message('warn');
     process.env.MIN_LOG_LEVEL = 'error';
     process.env.MIN_LOG_LEVEL_LOGENTRIES = 'warn';
@@ -174,8 +166,7 @@ describe('Logentries subscriber ', () => {
       LOGS_TOKEN: '00000000-0000-0000-0000-000000000000',
       LOGENTRIES_LOGGING: true
     });
-    const spy = sinon.spy(logentries.winston.log);
-    logentries.winston.log = spy;
+    const spy = sinon.spy(logentries.winston, 'log');
     const message = new Message('error');
     process.env.MIN_LOG_LEVEL = 'error';
     logentries.handle(message);
@@ -187,9 +178,21 @@ describe('Logentries subscriber ', () => {
       LOGS_TOKEN: '00000000-0000-0000-0000-000000000000',
       LOGENTRIES_LOGGING: true
     });
-    const spy = sinon.spy(logentries.winston.log);
-    logentries.winston.log = spy;
+    const spy = sinon.spy(logentries.winston, 'log');
     const message = new Message('error');
+    process.env.MIN_LOG_LEVEL = 'warn';
+    logentries.handle(message);
+    assert(spy.called);
+  });
+
+  it('should jsonify metadata', () => {
+    const logentries = new this.LogentriesSubscriber({
+      LOGS_TOKEN: '00000000-0000-0000-0000-000000000000',
+      LOGENTRIES_LOGGING: true,
+      JSONIFY: true
+    });
+    const spy = sinon.spy(logentries.winston, 'log');
+    const message = new Message('error', 'Hello world', { one: 1, two: 2, three: 3 });
     process.env.MIN_LOG_LEVEL = 'warn';
     logentries.handle(message);
     assert(spy.called);

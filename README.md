@@ -22,17 +22,18 @@ The subscriber will make sure that a message will be sent to Logentries if:
 * ``message.level >= 'MIN_LOG_LEVEL_LOGENTRIES' || 'MIN_LOG_LEVEL'``
 * ``process.env.LOGENTRIES_LOGGING !== 'false' || settings.LOGENTRIES_LOGGING !== false``
 
-## Configuration
-**Environment variables**:
-* ``process.env.LOGENTRIES_LOGGING = 'true|false'`` - Switching on / off the subscriber. On by default
-* ``process.env.LOGS_TOKEN = 'TOKEN'`` - your Logentries token
-* ``process.env.MIN_LOG_LEVEL_LOGENTRIES = 'silly|verbose|info|warn|error'``
-
 **Settings**:
+Module can be configured by both env variables or config object. However, env variables have a higher priority.
 ```js
 {
   LOGENTRIES_LOGGING: true|false,
   LOGS_TOKEN: 'YOUR_LOGENTRIES_TOKEN',
-  MIN_LOG_LEVEL_LOGENTRIES: 'silly|verbose|info|warn|error'
+  MIN_LOG_LEVEL_LOGENTRIES: 'silly|verbose|info|warn|error',
+  LOG_TIMESTAMP = 'true'
+  LOG_ENVIRONMENT = 'true'
+  LOG_LEVEL = 'true'
+  LOG_REQID = 'true' // only included when provided with metadata
+  LOG_CALLER_PREFIX = 'true' // additional prefix with info about caller module/project/function
+  JSONIFY = 'true' // converts metadata to json
 }
 ```
