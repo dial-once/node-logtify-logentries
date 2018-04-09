@@ -1,5 +1,11 @@
 # logtify-logentries
 [![CircleCI](https://circleci.com/gh/dial-once/node-logtify-logentries.svg?style=svg)](https://circleci.com/gh/dial-once/node-logtify-logentries)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/gate?key=node-logtify-logentries)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=ncloc)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=coverage)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=code_smells)](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=coverage)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=bugs)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
+[![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=sqale_debt_ratio)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
 
 Logentries subscriber for [logtify](https://github.com/dial-once/node-logtify) logger
 
