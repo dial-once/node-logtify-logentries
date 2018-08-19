@@ -1,4 +1,5 @@
 # logtify-logentries
+
 [![CircleCI](https://circleci.com/gh/dial-once/node-logtify-logentries.svg?style=svg)](https://circleci.com/gh/dial-once/node-logtify-logentries)
 [![Sonar](http://proxy.dialonce.net/sonar/api/badges/gate?key=node-logtify-logentries)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
 [![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=ncloc)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
