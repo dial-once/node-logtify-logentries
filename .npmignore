@@ -10,3 +10,4 @@ test
 .npmignore
 Makefile
 sonar-project.properties
+.nyc_output
