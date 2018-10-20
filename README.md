@@ -8,6 +8,7 @@
 [![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=bugs)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
 [![Sonar](http://proxy.dialonce.net/sonar/api/badges/measure?key=node-logtify-logentries&metric=sqale_debt_ratio)](http://sonar.dialonce.net/dashboard?id=node-logtify-logentries)
 
+
 Logentries subscriber for [logtify](https://github.com/dial-once/node-logtify) logger
 
 ## Installation
